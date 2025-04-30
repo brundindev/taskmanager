@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Incluir la barra de navegación -->
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+
+    <div class="container mt-5">
+        <!-- Encabezado con efecto de glassmorphism -->
+        <div class="p-4 mb-4 rounded-4 bg-white border" style="box-shadow: none; border-color: #e6e6e6;">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="mb-1 fw-bold" style="color: #333;">Mis Tareas</h1>
+                    <p class="text-muted mb-0">Organiza y gestiona tus actividades de forma eficiente</p>
+                </div>
+                <div>
+                    <a href="/tasks/new" class="btn btn-primary me-2">
+                        <i class="bi bi-plus-circle me-1"></i> Nueva Tarea
+                    </a>
+                    <a href="/h2" class="btn btn-light border" target="_blank" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <i class="bi bi-database me-1"></i> Base de Datos H2
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info glass-effect border-0" th:if="${#lists.isEmpty(tasks)}">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-info-circle-fill me-3 fs-4"></i>
+                <div>
+                    <h5 class="alert-heading mb-1">No hay tareas</h5>
+                    <p class="mb-0">¡Crea una nueva tarea para comenzar a organizar tus actividades!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" th:unless="${#lists.isEmpty(tasks)}">
+            <!-- Sección Pendientes -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-warning text-white p-3">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-hourglass-split me-2 fs-5"></i>
+                            <h5 class="mb-0">Pendientes</h5>
+                            <span class="badge bg-white text-dark ms-auto rounded-pill" th:text="${#lists.size(tasks.?[status.name() == 'PENDIENTE'])}">0</span>
+                        </div>
+                    </div>
+                    <div class="card-body task-column" id="column-PENDIENTE" data-status="PENDIENTE" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div th:each="task : ${tasks}" th:if="${task.status.name() == 'PENDIENTE'}" class="card mb-3 task-card" 
+                             th:id="'task-' + ${task.id}" draggable="true" ondragstart="drag(event)" th:data-task-id="${task.id}">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${task.title}">Título de tarea</h5>
+                                <p class="card-text" th:text="${task.description ?: 'Sin descripción'}">Descripción</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-calendar3 me-1 text-muted"></i>
+                                        <small class="text-muted" th:text="${#temporals.format(task.dueDate, 'dd/MM/yyyy')}">Fecha</small>
+                                    </div>
+                                    <div>
+                                        <a th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-sm btn-outline-primary me-1">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a th:href="@{/tasks/delete/{id}(id=${task.id})}" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center py-3 empty-column-message" 
+                             th:if="${#lists.isEmpty(tasks.?[status.name() == 'PENDIENTE'])}">
+                            <i class="bi bi-inbox fs-1 text-muted"></i>
+                            <p class="text-muted mt-2">No hay tareas pendientes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección En Progreso -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-info text-white p-3">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-arrow-repeat me-2 fs-5"></i>
+                            <h5 class="mb-0">En Progreso</h5>
+                            <span class="badge bg-white text-dark ms-auto rounded-pill" th:text="${#lists.size(tasks.?[status.name() == 'EN_PROGRESO'])}">0</span>
+                        </div>
+                    </div>
+                    <div class="card-body task-column" id="column-EN_PROGRESO" data-status="EN_PROGRESO" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div th:each="task : ${tasks}" th:if="${task.status.name() == 'EN_PROGRESO'}" class="card mb-3 task-card" 
+                             th:id="'task-' + ${task.id}" draggable="true" ondragstart="drag(event)" th:data-task-id="${task.id}">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${task.title}">Título de tarea</h5>
+                                <p class="card-text" th:text="${task.description ?: 'Sin descripción'}">Descripción</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-calendar3 me-1 text-muted"></i>
+                                        <small class="text-muted" th:text="${#temporals.format(task.dueDate, 'dd/MM/yyyy')}">Fecha</small>
+                                    </div>
+                                    <div>
+                                        <a th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-sm btn-outline-primary me-1">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a th:href="@{/tasks/delete/{id}(id=${task.id})}" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center py-3 empty-column-message" 
+                             th:if="${#lists.isEmpty(tasks.?[status.name() == 'EN_PROGRESO'])}">
+                            <i class="bi bi-inbox fs-1 text-muted"></i>
+                            <p class="text-muted mt-2">No hay tareas en progreso</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección Completadas -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-success text-white p-3">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check2-all me-2 fs-5"></i>
+                            <h5 class="mb-0">Completadas</h5>
+                            <span class="badge bg-white text-dark ms-auto rounded-pill" th:text="${#lists.size(tasks.?[status.name() == 'COMPLETADA'])}">0</span>
+                        </div>
+                    </div>
+                    <div class="card-body task-column" id="column-COMPLETADA" data-status="COMPLETADA" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div th:each="task : ${tasks}" th:if="${task.status.name() == 'COMPLETADA'}" class="card mb-3 task-card" 
+                             th:id="'task-' + ${task.id}" draggable="true" ondragstart="drag(event)" th:data-task-id="${task.id}">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${task.title}">Título de tarea</h5>
+                                <p class="card-text" th:text="${task.description ?: 'Sin descripción'}">Descripción</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted status-text d-none" th:text="${task.status}">Estado</small>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-calendar3 me-1 text-muted"></i>
+                                        <small class="text-muted" th:text="${#temporals.format(task.dueDate, 'dd/MM/yyyy')}">Fecha</small>
+                                    </div>
+                                    <div>
+                                        <a th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-sm btn-outline-primary me-1">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a th:href="@{/tasks/delete/{id}(id=${task.id})}" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center py-3 empty-column-message" 
+                             th:if="${#lists.isEmpty(tasks.?[status.name() == 'COMPLETADA'])}">
+                            <i class="bi bi-inbox fs-1 text-muted"></i>
+                            <p class="text-muted mt-2">No hay tareas completadas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-5 mb-4 text-center text-muted small">
+            <p><span class="fw-bold" href="https://www.brundindev-portfolio.vercel.app">brundindev</span> © 2025 Gestor de Tareas · Desarrollado con <i class="bi bi-heart-fill text-danger"></i>, Java y Spring Boot.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html> 

@@ -1,0 +1,721 @@
+/*
+ * ========================================================
+ * 2025 © copyright  @brundindev
+ * ========================================================
+ */
+:root {
+    --apple-white: #ffffff;
+    --apple-light-gray: #f5f5f7;
+    --apple-medium-gray: #86868b;
+    --apple-dark-gray: #1d1d1f;
+    --apple-blue: #0071e3;
+    --apple-blue-hover: #0077ED;
+    --apple-green: #4cd964;
+    --apple-yellow: #ffcc00;
+    --apple-orange: #ff9500;
+    --apple-red: #ff3b30;
+    --apple-gray: #F5F5F7;
+    
+    --border-radius: 10px;
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+    --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-normal: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-slow: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    background-color: #f8f9fa;
+    color: var(--apple-dark-gray);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+nav.navbar {
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    padding: 0.8rem 1rem;
+    transition: all var(--transition-normal);
+    position: relative;
+    z-index: 1030;
+}
+
+.navbar-brand {
+    font-weight: 500;
+    letter-spacing: -0.3px;
+}
+
+.nav-link {
+    font-weight: 400;
+    transition: all var(--transition-fast);
+}
+
+.nav-link:hover {
+    color: var(--apple-blue) !important;
+    transform: translateY(-1px);
+}
+
+/* Estilos para Dropdowns */
+.dropdown-menu {
+    z-index: 1040 !important;
+    margin-top: 0.5rem !important;
+    border: none;
+    box-shadow: var(--shadow-md);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.dropdown-item {
+    padding: 0.6rem 1rem;
+    transition: all var(--transition-fast);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(0, 113, 227, 0.1);
+}
+
+.dropdown-item i {
+    color: var(--apple-blue);
+}
+
+.btn {
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+    box-shadow: none;
+    border: 1px solid transparent;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--apple-blue);
+    border-color: var(--apple-blue);
+}
+
+.btn-primary:hover {
+    background-color: var(--apple-blue-hover);
+    border-color: var(--apple-blue-hover);
+}
+
+.btn-success {
+    background-color: var(--apple-green);
+}
+
+.btn-warning {
+    background-color: var(--apple-yellow);
+    color: var(--apple-dark-gray);
+}
+
+.btn-danger {
+    background-color: var(--apple-red);
+}
+
+.btn-secondary {
+    background-color: var(--apple-medium-gray);
+}
+
+.btn-outline-primary {
+    background-color: transparent;
+    border: 1px solid var(--apple-blue);
+    color: var(--apple-blue);
+}
+
+.btn-outline-danger {
+    background-color: transparent;
+    border: 1px solid var(--apple-red);
+    color: var(--apple-red);
+}
+
+/* Tarjetas de tareas */
+.card {
+    border-radius: var(--border-radius);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    background-color: #ffffff;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.card-header {
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    padding: 1rem 1.25rem;
+    border: none;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.card-header.bg-warning {
+    background: linear-gradient(135deg, var(--apple-yellow), #ffaa00) !important;
+    color: var(--apple-dark-gray) !important;
+}
+
+.card-header.bg-info {
+    background: linear-gradient(135deg, var(--apple-blue), #44a4ff) !important;
+    color: white !important;
+}
+
+.card-header.bg-success {
+    background: linear-gradient(135deg, var(--apple-green), #34c759) !important;
+    color: white !important;
+}
+
+.card-header.bg-primary {
+    background: linear-gradient(135deg, #0071e3, #44a4ff) !important;
+    color: white !important;
+}
+
+/* Tareas */
+.task-card {
+    background-color: #ffffff !important;
+    border: 1px solid #e6e6e6 !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: 1rem;
+    cursor: grab;
+    
+    /* Efecto de borde */
+    background-clip: padding-box;
+    user-select: none;
+}
+
+.task-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: -1px;
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.task-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
+    z-index: 2;
+}
+
+.task-card:active {
+    transform: translateY(-4px) scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+.task-card.dragging {
+    opacity: 0.9;
+    cursor: grabbing;
+    transform: rotate(2deg) scale(1.05);
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+    animation: pulse 1.5s infinite;
+}
+
+.task-card.pending::before {
+    background: linear-gradient(45deg, var(--apple-yellow), #ffaa00);
+}
+
+.task-card.in-progress::before {
+    background: linear-gradient(45deg, var(--apple-blue), #44a4ff);
+}
+
+.task-card.completed::before {
+    background: linear-gradient(45deg, var(--apple-green), #34c759);
+}
+
+.task-card .card-body {
+    padding: 1.25rem;
+}
+
+.task-card .card-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: var(--apple-dark-gray);
+}
+
+.task-card .card-text {
+    color: var(--apple-medium-gray);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+/* Columnas de tareas */
+.task-column {
+    min-height: 200px;
+    max-height: 600px;
+    overflow-y: auto;
+    transition: background-color var(--transition-normal);
+    padding: 1.25rem;
+    border-radius: var(--border-radius);
+    background-color: #ffffff !important;
+    border: 1px solid #e6e6e6;
+    box-shadow: none;
+}
+
+.task-column.column-highlight {
+    background-color: rgba(255, 255, 255, 0.8);
+    animation: pulse-light 1.5s infinite;
+}
+
+#column-PENDIENTE.column-highlight {
+    background-color: rgba(255, 204, 0, 0.1);
+    border: 2px dashed var(--apple-yellow);
+}
+
+#column-EN_PROGRESO.column-highlight {
+    background-color: rgba(0, 102, 204, 0.1);
+    border: 2px dashed var(--apple-blue);
+}
+
+#column-COMPLETADA.column-highlight {
+    background-color: rgba(76, 217, 100, 0.1);
+    border: 2px dashed var(--apple-green);
+}
+
+/* Formularios */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.75rem 1rem;
+    transition: all var(--transition-fast);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.form-control:focus {
+    border-color: var(--apple-blue);
+    box-shadow: 0 0 0 0.25rem rgba(0, 113, 227, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--apple-dark-gray);
+}
+
+.form-select {
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.75rem 1rem;
+    transition: all var(--transition-fast);
+}
+
+/* Notificaciones */
+.notification {
+    box-shadow: var(--shadow-md);
+    animation: slide-in var(--transition-fast);
+    border-radius: var(--border-radius);
+    border: none;
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.notification.alert-success {
+    background-color: rgba(76, 217, 100, 0.9);
+    color: white;
+}
+
+.notification.alert-danger {
+    background-color: rgba(255, 59, 48, 0.9);
+    color: white;
+}
+
+/* Animaciones */
+@keyframes slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 102, 204, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 102, 204, 0);
+    }
+}
+
+@keyframes pulse-light {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Efecto de glassmorphism */
+.glass-effect {
+    background-color: #ffffff !important;
+    border: 1px solid #e6e6e6;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    box-shadow: none;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.glass-effect:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* Estilos específicos para el botón del navbar */
+.dropdown-toggle.glass-effect {
+    background-color: #ffffff;
+    border: 1px solid rgba(230, 230, 230, 0.7);
+    box-shadow: none;
+}
+
+.dropdown-toggle.glass-effect:hover {
+    background-color: #f8f9fa;
+}
+
+/* Encabezado de la página */
+.container .glass-effect {
+    background-color: #ffffff !important;
+    border: 1px solid #e6e6e6;
+    box-shadow: none;
+}
+
+.container .glass-effect:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.container .glass-effect h1 {
+    color: #333;
+}
+
+.container .glass-effect p {
+    color: #666;
+}
+
+/* Efecto de glassmorphism */
+.page-loaded {
+    animation: fade-in 0.5s ease-out;
+}
+
+/* Efecto de ripple cuando se arrastra */
+.ripple-effect {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: scale(0);
+    animation: ripple 0.5s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+/* Transiciones de estado */
+.update-success {
+    animation: success-pulse 1.5s ease;
+}
+
+.update-error {
+    animation: error-shake 0.5s ease;
+}
+
+@keyframes success-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(76, 217, 100, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(76, 217, 100, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(76, 217, 100, 0);
+    }
+}
+
+@keyframes error-shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* Mensajes de columna vacía */
+.empty-column-message {
+    opacity: 0.7;
+    transition: opacity var(--transition-normal);
+    background-color: #ffffff !important;
+}
+
+.task-column:hover .empty-column-message {
+    opacity: 1;
+}
+
+/* Modo oscuro */
+.dark-mode {
+    --apple-white: #1c1c1e;
+    --apple-light-gray: #121212;
+    --apple-medium-gray: #8e8e93;
+    --apple-dark-gray: #f5f5f7;
+    
+    color: var(--apple-dark-gray);
+}
+
+.dark-mode .card {
+    background-color: #2c2c2e;
+}
+
+.dark-mode .glass-effect {
+    background: rgba(44, 44, 46, 0.7);
+    border: 1px solid rgba(99, 99, 102, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+    
+    .container {
+        padding: 0.75rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Estilos para el perfil de usuario */
+.profile-avatar {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 113, 227, 0.1);
+    margin: 0 auto;
+}
+
+.profile-avatar i {
+    font-size: 3rem;
+}
+
+/* Animaciones para la página de perfil */
+.animate__animated {
+    animation-duration: 0.6s;
+}
+
+.animate__fadeIn {
+    animation-name: fadeIn;
+}
+
+/* Estilos para inputs en el formulario de perfil */
+.input-group-text {
+    background-color: var(--apple-blue);
+    color: white;
+    border-color: var(--apple-blue);
+}
+
+/* Personalización de alertas */
+.alert {
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: var(--box-shadow);
+    color: #000 !important;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #000 !important;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #000 !important;
+}
+
+.alert-info {
+    background-color: #cff4fc;
+    color: #000 !important;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #000 !important;
+}
+
+/* Asegurar que todos los textos en notificaciones sean negros */
+.notification, 
+.toast, 
+.alert,
+.alert * {
+    color: #000 !important;
+}
+
+/* Estilos para el botón admin en el nav */
+.btn-secondary, 
+[class*="btn-"].glass-effect {
+    background-color: #ffffff !important;
+    color: #333 !important;
+    border: 1px solid #e6e6e6;
+    box-shadow: none;
+}
+
+/* Estilos para el área de tareas en columnas (Kanban) */
+.row .col-md-4 .card {
+    background-color: #a6a6a6 !important;
+    border: 1px solid #e6e6e6 !important;
+    box-shadow: none !important;
+}
+
+.card-header {
+    background-color: transparent !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+}
+
+.card-header.bg-warning,
+.card-header.bg-info,
+.card-header.bg-success,
+.card-header.bg-primary {
+    background: #a6a6a6 !important;
+    color: #333 !important;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+/* Colorear solo los íconos de los encabezados */
+.card-header.bg-warning i {
+    color: var(--apple-yellow) !important;
+}
+
+.card-header.bg-info i {
+    color: var(--apple-blue) !important;
+}
+
+.card-header.bg-success i {
+    color: var(--apple-green) !important;
+}
+
+/* Estilos para elementos vacíos en las columnas */
+.empty-column-message {
+    background-color: #f9f9f9 !important;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+}
+
+/* Estilo para el admin dropdown */
+.dropdown button {
+    background-color: #ffffff !important;
+    border: 1px solid #e6e6e6 !important;
+}
+
+/* Brillo y contraste para elementos task-card */
+.task-card {
+    background-color: #ffffff !important;
+    border: 1px solid #e6e6e6 !important;
+}
+
+/* Asegurar que los títulos de las tarjetas sean negros */
+.card-title, 
+.task-card .card-title,
+.card-header h5,
+.card-header .mb-0 {
+    color: #000 !important;
+}
+
+/* Texto en las tarjetas */
+.task-card .card-body {
+    color: #333 !important;
+}
+
+.task-card .card-text {
+    color: #333 !important;
+}
+
+/* Color de texto en los encabezados de columnas */
+.card-header, 
+.card-header h5, 
+.card-header span {
+    color: #000 !important;
+}
+
+/* Asegurar contraste en tarjetas con fondos claros */
+.card, 
+.task-card {
+    color: #333 !important;
+}
+
+/* Forzar color negro para el título principal */
+.container h1 {
+    color: #000 !important;
+} 
+/*
+ * ========================================================
+ * 2025 © copyright  @brundindev
+ * ========================================================
+ */
