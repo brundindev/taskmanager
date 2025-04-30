@@ -40,7 +40,6 @@ public class SecurityConfig {
                 .disable()
             );
         
-        // Permitir frames para la consola H2
         http.headers(headers -> headers.frameOptions(options -> options.sameOrigin()));
         
         return http.build();

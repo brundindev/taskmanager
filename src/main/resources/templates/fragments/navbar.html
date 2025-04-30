@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo_taskmanager.ico}">
 </head>
 <body>
     <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -29,7 +30,18 @@
                     </li>
                 </ul>
                 
-                <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <!-- Switch para cambio de tema -->
+                    <div class="theme-switch-wrapper me-3">
+                        <label class="theme-switch" for="theme-toggle">
+                            <input type="checkbox" id="theme-toggle" />
+                            <div class="slider round">
+                                <i class="bi bi-sun-fill theme-icon-light"></i>
+                                <i class="bi bi-moon-fill theme-icon-dark"></i>
+                            </div>
+                        </label>
+                    </div>
+
                     <div sec:authorize="isAuthenticated()" class="dropdown">
                         <button class="btn dropdown-toggle glass-effect" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle me-1" style="color: var(--apple-blue);"></i>
@@ -39,7 +51,7 @@
                             <li>
                                 <span class="dropdown-item-text text-muted small ps-3 py-1">
                                     <i class="bi bi-person-badge me-1"></i>
-                                    Sesión iniciada
+                                    Sesión iniciada como <span sec:authentication="name"></span>
                                 </span>
                             </li>
                             <li><hr class="dropdown-divider"></li>

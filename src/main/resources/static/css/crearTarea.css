@@ -1,0 +1,109 @@
+/*
+ * ========================================================
+ * 2025 © copyright  @brundindev
+ * ========================================================
+ */
+ .form-floating {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.form-floating label {
+    opacity: 0.7;
+    transition: all 0.2s;
+    color: #333;
+}
+.form-control, .form-select {
+    background-color: rgba(245, 245, 247, 0.8);
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 1rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s;
+    height: 58px;
+    box-shadow: none;
+    color: #333;
+}
+.form-control:focus, .form-select:focus {
+    background-color: #ffffff;
+    border-color: var(--apple-blue);
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+}
+::placeholder {
+    color: #333 !important;
+    opacity: 0.7 !important;
+}
+textarea.form-control {
+    height: auto;
+    min-height: 120px;
+    resize: none;
+}
+.task-form-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s;
+}
+.task-form-header {
+    padding: 1.8rem 2rem 1rem;
+    background: linear-gradient(135deg, #0071e3, #44a4ff);
+    color: white;
+    border: none;
+}
+.task-form-body {
+    padding: 2rem;
+}
+.form-buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+.btn-save {
+    background: linear-gradient(135deg, #0071e3, #44a4ff);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+.btn-save:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 113, 227, 0.3);
+}
+.btn-cancel {
+    background-color: rgba(255, 59, 48, 0.1);
+    border: none;
+    color: #ff3b30;
+    font-weight: 600;
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+.btn-cancel:hover {
+    transform: translateY(-3px);
+    background-color: rgba(255, 59, 48, 0.2);
+    box-shadow: 0 5px 15px rgba(255, 59, 48, 0.2);
+}
+.header-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+.form-header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.header-subtitle {
+    opacity: 0.8;
+    font-weight: 400;
+    margin-top: 0.5rem;
+}
+/*
+ * ========================================================
+ * 2025 © copyright  @brundindev
+ * ========================================================
+ */

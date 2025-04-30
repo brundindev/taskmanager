@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Tareas</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo_taskmanager.ico}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -12,11 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Incluir la barra de navegación -->
-    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
     <div class="container mt-5">
-        <!-- Encabezado con efecto de glassmorphism -->
         <div class="p-4 mb-4 rounded-4 bg-white border" style="box-shadow: none; border-color: #e6e6e6;">
             <div class="d-flex justify-content-between align-items-center">
                 <div>

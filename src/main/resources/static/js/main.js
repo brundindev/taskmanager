@@ -63,6 +63,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Configuración del switch de cambio de tema
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        // Verificar si hay una preferencia de tema guardada
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.checked = true;
+        } else if (savedTheme === 'light') {
+            document.body.classList.remove('dark-mode');
+            themeToggle.checked = false;
+        } else {
+            // Si no hay preferencia guardada, usar la preferencia del sistema
+            const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.body.classList.toggle('dark-mode', prefersDarkMode);
+            themeToggle.checked = prefersDarkMode;
+        }
+        
+        // Evento para cambiar el tema
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                showNotification('Modo oscuro activado', 'success');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                showNotification('Modo claro activado', 'success');
+            }
+        });
+    }
+
     // Animación para las tarjetas al hacer hover
     taskCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
